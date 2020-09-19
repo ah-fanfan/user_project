@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息管理</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="list-main-container">
+    <div class="row" id="div-table-container">
+        <button id="btnAdd" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">添加班级信息</button>
+        <table id="table-list" class="table" style="width: 100%">
+            <thead>
+            <th><input type="checkbox" name="cb-check-all"></th>
+            <th>编号</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>性别</th>
+            <th>出生日期</th>
+            <th>详细地址</th>
+            <th>邮箱</th>
+            <th>存在状态</th>
+            <th>修改时间</th>
+            <th>创建时间</th>
+            <th>操作功能</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!--添加模块-->
+<div class="modal fade" id="myModal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    添加用户信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="add-clazz-form">
+                    <div class="form-group">
+                        <label class="sr-only" >用户名</label>
+                        <input type="text" class="form-control" id="user-mobile" name="mobile" placeholder="请输入用户名">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >用户密码</label>
+                        <input type="text" class="form-control" id="user-password" name="password" placeholder="请输入用户密码">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >性别</label>
+                        <select class="form-control" id="user-sex" name="sex">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only">出生日期</label>
+                        <input type="text" class="form-control" id="user-birthday" name="birthday" placeholder="请输入出生日期">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >详细地址</label>
+                        <input type="text" class="form-control" id="user-address" name="address" placeholder="请输入详细地址">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >邮箱</label>
+                        <input type="text" class="form-control" id="user-email" name="email" placeholder="请输入邮箱">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >修改时间</label>
+                        <input type="text" class="form-control" id="user-update_time" name="update_time" placeholder="请输入修改时间">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >创建时间</label>
+                        <input type="text" class="form-control" id="user-create_time" name="create_time" placeholder="请输入创建时间">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="user-state" name="state" value="1 " >
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" id="add-clazz-submit" class="btn btn-primary">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改信息模块-->
+
+<div class="modal fade" id="myModal-update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel-update">
+                    修改用户信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="update-clazz-form">
+                    <input type="hidden" id="id-update">
+                    <div class="form-group">
+                        <label class="sr-only" >用户名</label>
+                        <input type="text" class="form-control" id="mobile-update" name="mobile" placeholder="请输入用户名">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >密码</label>
+                        <input type="text" class="form-control" id="password-update" name="password" placeholder="请输入密码">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >性别</label>
+                        <input type="text" class="form-control" id="sex-update" name="sex"
+                               placeholder="请输入性别">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >出生日期</label>
+                        <input type="text" class="form-control" id="birthdate-update" name="birthdate" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >地址</label>
+                        <input type="text" class="form-control" id="address-update" name="address" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >邮箱</label>
+                        <input type="text" class="form-control" id="email-update" name="email" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >存在状态</label>
+                        <select class="form-control" id="state-update" name="state">
+                            <option value="1">已毕业</option>
+                            <option value="0">未毕业</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" id="update-user-submit" class="btn btn-primary">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--详情信息模块-->
+<div class="modal fade" id="myModal-query" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel-query">
+                    用户信息详情
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="query-clazz-form">
+                    <input type="hidden" id="id-query">
+                    <div class="form-group">
+                        <label class="sr-only" >用户名</label>
+                        <input type="text" class="form-control" id="mobile-query" name="mobile" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >密码</label>
+                        <input type="text" class="form-control" id="password-query" name="password" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >性别</label>
+                        <input type="text" class="form-control" id="sex-query" name="sex"
+                               >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >出生日期</label>
+                        <input type="text" class="form-control" id="birthdate-query" name="birthdate" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >地址</label>
+                        <input type="text" class="form-control" id="address-query" name="address" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >邮箱</label>
+                        <input type="text" class="form-control" id="email-query" name="email" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" >创建时间</label>
+                        <input type="text" class="form-control" id="create_time-query" name="create_time" >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="sr-only" >修改时间</label>
+                        <input type="text" class="form-control" id="update_time-query" name="update_time" >
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="/js/constant.js"></script>
+<script src="/js/user.js"></script>
+
+</html>

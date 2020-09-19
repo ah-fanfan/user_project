@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>主页</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        iframe {
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            border-top-style: inset;
+            border-right-style: inset;
+            border-bottom-style: inset;
+            border-left-style: inset;
+            border-top-color: initial;
+            border-right-color: initial;
+            border-bottom-color: initial;
+            border-left-color: initial;
+            border-image-source: initial;
+            border-image-slice: initial;
+            border-image-width: initial;
+            border-image-outset: initial;
+            border-image-repeat: initial;
+        }
+
+        .active{
+            background-color: rgba(222, 245, 244, 0.89);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="col-xs-2" style="height: 100vh;">
+        <ul id="left-menu" class="nav navbar-nav">
+
+        </ul>
+    </div>
+    <div class="col-xs-10" style="border-left: 1px solid #eeeeee;">
+        <div class="row" style="height: 40px;border-bottom: 1px solid #eeeeee;">
+            <span id="page-name"></span>
+        </div>
+        <div id="page-continaer" style="height: calc(100vh - 40px)">
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    $(function () {
+        //通过ajax 或者 jsp request属性传递
+        var menuList = [
+            {
+                id:1,
+                name:'用户信息管理',
+                href:'user.html',
+                children:[]
+            },
+            {
+                id:2,
+                name:'管理员信息管理',
+                href:'#',
+                children:[]
+            },
+            {
+                id:3,
+                name:'部门信息管理',
+                href:'#',
+                children:[]
+            }
+
+
+        ];
+
+        initMenu(menuList);
+
+    });
+
+    /**
+     * 初始化菜单
+     * @param menuList
+     */
+    function initMenu(menuList){
+        var html = '';
+        for(var i=0;i<menuList.length;i++){
+            html += '<li page_path="'+menuList[i].href+'">\
+                        <a href="#">'+menuList[i].name+'</a>\
+                    </li>';
+        }
+        $('#left-menu').html(html);
+        $('#left-menu li').on('click', function () {
+            var self = $(this);
+            $('#left-menu li').removeClass('active');
+            self.addClass('active');
+            var pagePath = self.attr('page_path');
+            $('#page-continaer').html('<iframe src="'+pagePath+'" width="100%" height="100%" style="border: 0px solid;"></iframe>');
+           // $('#page-continaer').html('<iframe src="user.html" width="100%" height="100%" style="border: 0px solid;"></iframe>');
+            $('#page-name').html(self.html());
+        });
+        $('#left-menu li').first().click();
+    }
+
+</script>
+</body>
+</html>
